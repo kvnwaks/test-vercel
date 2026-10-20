@@ -117,6 +117,10 @@ match getenv("DB_BACKEND", "").strip().lower():
                 "PASSWORD": getenv("DB_POSTGRES_PASSWORD", ""),
                 "HOST": getenv("DB_POSTGRES_HOST", "localhost"),
                 "PORT": getenv("DB_POSTGRES_PORT", "5432"),
+                "OPTIONS": {
+                    "sslmode": getenv("DB_POSTGRES_SSL_MODE", "prefer"),
+                    # "pool": getenv("DB_POSTGRES_POOL", "false").lower() == "true",
+                },
             }
         }
     case _:
