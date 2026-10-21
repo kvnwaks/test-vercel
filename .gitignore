@@ -11,6 +11,7 @@ __pycache__/
 
 # Static & media files
 /public/
+/assets/
 
 # Environment
 /.env*

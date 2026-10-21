@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-PUBLIC_DIR: Path = BASE_DIR / "public"
+ASSETS_DIR: Path = BASE_DIR / "assets"
 
 DOTENV: Path = BASE_DIR / ".env"
 
@@ -166,7 +166,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/stable/howto/static-files/
 
-STATIC_ROOT: Path = PUBLIC_DIR / "static"
+STATIC_ROOT: Path = ASSETS_DIR / "static"
 
 STATIC_URL = "static/"
 
@@ -176,7 +176,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/6.1/ref/settings/#std-setting-MEDIA_URL
 # https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development
 
-MEDIA_ROOT: Path = PUBLIC_DIR / "media"
+MEDIA_ROOT: Path = ASSETS_DIR / "media"
 
 MEDIA_URL = "media/"
 
