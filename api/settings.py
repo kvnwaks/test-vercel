@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
-from os import getenv
+from os import environ, getenv
 from pathlib import Path
+from urllib.parse import parse_qsl, urlparse
 
 from django.utils.csp import CSP
 
@@ -101,29 +102,29 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-match getenv("DB_BACKEND", "").strip().lower():
-    case "pg" | "postgres" | "postgresql":
-        DATABASES = {
-            "default": {
-                "ENGINE": "django.db.backends.postgresql",
-                "NAME": getenv("DB_POSTGRES_DATABASE", "postgres"),
-                "USER": getenv("DB_POSTGRES_USER", "postgres"),
-                "PASSWORD": getenv("DB_POSTGRES_PASSWORD", ""),
-                "HOST": getenv("DB_POSTGRES_HOST", "localhost"),
-                "PORT": getenv("DB_POSTGRES_PORT", "5432"),
-                "OPTIONS": {
-                    "sslmode": getenv("DB_POSTGRES_SSL_MODE", "prefer"),
-                    # "pool": getenv("DB_POSTGRES_POOL", "false").lower() == "true",
-                },
-            }
+if getenv("DB_DATABASE_URL"):
+    url = urlparse(environ["DB_DATABASE_URL"])
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": url.path.lstrip("/"),
+            "USER": url.username,
+            "PASSWORD": url.password,
+            "HOST": url.hostname,
+            "PORT": url.port,
+            "OPTIONS": {
+                **dict(parse_qsl(url.query)),
+            },
         }
-    case _:
-        DATABASES = {
-            "default": {
-                "ENGINE": "django.db.backends.sqlite3",
-                "NAME": BASE_DIR / "db.sqlite3",
-            }
+    }
+else:
+    # Fall back to SQLite for local development
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
+    }
 
 
 # Password validation

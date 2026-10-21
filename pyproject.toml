@@ -3,7 +3,7 @@ name = "kvnwaks"
 version = "0.1.0"
 readme = "README.md"
 authors = [{ name = "Kevin Wakhisi", email = "kevin@treeolive.tech" }]
-requires-python = ">=3.12,<3.15"
+requires-python = ">=3.14,<3.15"
 dependencies = [
     "django>=6.1.2",
     "pillow>=13.0.0",
@@ -13,7 +13,7 @@ dependencies = [
     "django-http-compression[brotli]>=1.4.0",
     "django-minify-html>=1.14.0",
     "django-browser-reload>=1.21.0",
-    
+
     # rest framework
     "djangorestframework>=3.18.3",
     "django-filter>=26.2",
@@ -21,11 +21,7 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = [
-    "django-stubs>=6.1.2",
-    "djlint>=1.46.6",
-    "poethepoet>=0.49.0",
-]
+dev = ["django-stubs>=6.1.2", "djlint>=1.46.6", "poethepoet>=0.49.0"]
 
 [tool.uv]
 preview-features = ["format-command", "check-command"]
@@ -47,6 +43,7 @@ sequence = [{ cmd = "uv format" }, { cmd = "djlint . --reformat" }]
 [tool.poe.tasks.lint]
 help = "Run all linters and Django checks"
 sequence = [
+    { cmd = "uv format --check" },
     { cmd = "uv lock --check" },
     { cmd = "uv check" },
     { cmd = "python manage.py check" },
@@ -61,3 +58,6 @@ cmd = "python manage.py test"
 [tool.poe.tasks.ci]
 help = "Run everything used in CI"
 sequence = [{ ref = "lint" }, { ref = "test" }]
+
+[tool.vercel.scripts]
+build = "python manage.py migrate --noinput"
