@@ -14,17 +14,11 @@ from os import getenv
 from pathlib import Path
 
 from django.utils.csp import CSP
-from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ASSETS_DIR: Path = BASE_DIR / "assets"
-
-DOTENV: Path = BASE_DIR / ".env"
-
-if DOTENV.is_file():
-    load_dotenv(DOTENV)
+ASSETS_DIR = BASE_DIR / "assets"
 
 
 # Quick-start development settings - unsuitable for production
