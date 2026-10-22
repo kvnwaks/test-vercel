@@ -64,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.csp.ContentSecurityPolicyMiddleware",
     "django_http_compression.middleware.HttpCompressionMiddleware",  # NOTE: before any middleware that modifies HTML
     "django_minify_html.middleware.MinifyHtmlMiddleware",  # NOTE: after http_compression, before other HTML modifiers (e.g. django_browser_reload)
     "django_browser_reload.middleware.BrowserReloadMiddleware",
@@ -81,6 +82,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.csp",
             ],
         },
     },
