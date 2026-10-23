@@ -1,15 +1,11 @@
 [project]
-name = "kvnwaks"
+name = "test-vercel"
 version = "0.1.0"
 readme = "README.md"
 authors = [{ name = "Kevin Wakhisi", email = "kevin@treeolive.tech" }]
 requires-python = ">=3.14,<3.15"
 dependencies = [
-    "django>=6.1.2",
-    "pillow>=13.0.0",
-    "python-dotenv>=1.2.4",
-    "psycopg[binary,pool]>=3.3.6",
-    "vercel>=0.12.0",
+    "djangx[vercel]>=0.1.0.dev4",
     "django-http-compression[brotli]>=1.4.0",
     "django-minify-html>=1.14.0",
     "django-browser-reload>=1.21.0",
@@ -18,13 +14,11 @@ dependencies = [
     "djangorestframework>=3.18.3",
     "django-filter>=26.2",
     "markdown>=3.11.2",
+    "django-storages>=1.14.6",
 ]
 
 [dependency-groups]
 dev = ["django-stubs>=6.1.2", "djlint>=1.46.6", "poethepoet>=0.49.0"]
-
-[tool.uv]
-preview-features = ["format-command", "check-command"]
 
 [tool.djlint]
 format_css = true
@@ -35,6 +29,9 @@ ignore = "H016,H030,H031"
 
 [tool.ruff]
 exclude = ["*/migrations/*"]
+
+[tool.uv]
+preview-features = ["format-command", "check-command"]
 
 [tool.poe.tasks.format]
 help = "Format Python, HTML, CSS and JS"
@@ -59,5 +56,8 @@ cmd = "python manage.py test"
 help = "Run everything used in CI"
 sequence = [{ ref = "lint" }, { ref = "test" }]
 
+[tool.djangx]
+settings = "app.settings"
+
 [tool.vercel.scripts]
-build = "python manage.py migrate --noinput"
+build = "djangx migrate --noinput"

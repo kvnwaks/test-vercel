@@ -19,7 +19,7 @@ from django.utils.csp import CSP
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ASSETS_DIR = BASE_DIR / "assets"
+PUBLIC_DIR = BASE_DIR / "public"
 
 
 # Quick-start development settings - unsuitable for production
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django_minify_html",
     "django_http_compression",
     "rest_framework",
+    "djangx.core",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -70,7 +71,7 @@ MIDDLEWARE = [
     "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
-ROOT_URLCONF = "api.urls"
+ROOT_URLCONF = "app.urls"
 
 TEMPLATES = [
     {
@@ -88,9 +89,9 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = "api.asgi.application"
+ASGI_APPLICATION = "app.asgi.application"
 
-WSGI_APPLICATION = "api.wsgi.application"
+WSGI_APPLICATION = "djangx.core.wsgi.application"
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -163,7 +164,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/stable/howto/static-files/
 
-STATIC_ROOT: Path = ASSETS_DIR / "static"
+STATIC_ROOT: Path = PUBLIC_DIR / "static"
 
 STATIC_URL = "static/"
 
@@ -173,7 +174,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/6.1/ref/settings/#std-setting-MEDIA_URL
 # https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development
 
-MEDIA_ROOT: Path = ASSETS_DIR / "media"
+MEDIA_ROOT: Path = PUBLIC_DIR / "media"
 
 MEDIA_URL = "media/"
 
