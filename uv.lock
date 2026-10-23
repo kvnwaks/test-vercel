@@ -312,16 +312,16 @@ wheels = [
 
 [[package]]
 name = "djangx"
-version = "0.1.0.dev5"
+version = "0.1.0.dev6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "pillow" },
     { name = "python-dotenv" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/da/8a/38264754efeb85c32971d3e83effaa25f525b44e62271132d3bc4bd45f9f/djangx-0.1.0.dev5.tar.gz", hash = "sha256:bfe7b973183520403ab98b90debac40b551b9c443fb8760858adf626da06db78", size = 7388, upload-time = "2026-10-23T18:45:30.981Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c2/a2/9846da9e2ee912311b98183b1e59d154a351746d801a8684ac02c2840e25/djangx-0.1.0.dev6.tar.gz", hash = "sha256:599a640336c6c30ead6ed27a37a1287e44086976079b3860714966a860c8b636", size = 7415, upload-time = "2026-10-23T19:20:54.256Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/68/1e/773a44cb92c0f5a1fc8493eeb60971dce57b30d8278c4c6dc5b235c7404b/djangx-0.1.0.dev5-py3-none-any.whl", hash = "sha256:ddfbbbd9aa7010567be9c1de9e21dd3a2c11be312333eccbf27ed92c3463a2f9", size = 10836, upload-time = "2026-10-23T18:45:29.252Z" },
+    { url = "https://files.pythonhosted.org/packages/2b/8f/8f6bc89efc59747eecfe6f876452972e52176e1e19cd785725675bbcb4ea/djangx-0.1.0.dev6-py3-none-any.whl", hash = "sha256:d972217abc17a97ca736ef2af134b1125e18245d96f8f070efcf403d7a085cbe", size = 10972, upload-time = "2026-10-23T19:20:52.36Z" },
 ]
 
 [package.optional-dependencies]
@@ -819,7 +819,7 @@ requires-dist = [
     { name = "django-http-compression", extras = ["brotli"], specifier = ">=1.4.0" },
     { name = "django-minify-html", specifier = ">=1.14.0" },
     { name = "djangorestframework", specifier = ">=3.18.3" },
-    { name = "djangx", extras = ["vercel"], specifier = ">=0.1.0.dev5" },
+    { name = "djangx", extras = ["vercel"], specifier = ">=0.1.0.dev6" },
     { name = "markdown", specifier = ">=3.11.2" },
 ]
 

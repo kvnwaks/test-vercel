@@ -89,9 +89,9 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = "djangx.core.asgi.application"
+ASGI_APPLICATION = "app.asgi.application"
 
-WSGI_APPLICATION = "djangx.core.wsgi.application"
+WSGI_APPLICATION = "app.wsgi.application"
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

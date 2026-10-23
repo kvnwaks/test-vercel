@@ -6,7 +6,7 @@ settings = "app.settings"
 authors = [{ name = "Kevin Wakhisi", email = "kevin@treeolive.tech" }]
 requires-python = ">=3.14,<3.15"
 dependencies = [
-    "djangx[vercel]>=0.1.0.dev5",
+    "djangx[vercel]>=0.1.0.dev6",
     "django-http-compression[brotli]>=1.4.0",
     "django-minify-html>=1.14.0",
     "django-browser-reload>=1.21.0",

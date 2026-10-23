@@ -1,19 +1,15 @@
-# NOTE: This file exists only so Vercel can discover the settings module and asgi/wsgi entrypoint.
-# NOTE: Use the `djangx` or `djx` command instead of `python manage.py`.
+"""Vercel reads this for the settings module. For development, run `djangx` or `djx` instead."""
+
 import os
 import sys
 
-from djangx.core import DJANGO_SETTINGS_MODULE
+from djangx.core.utils import DJANGO_SETTINGS_MODULE
 
+assert DJANGO_SETTINGS_MODULE is not None
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", DJANGO_SETTINGS_MODULE)
 
-def main():
-    """Run administrative tasks."""
-    assert DJANGO_SETTINGS_MODULE is not None
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", DJANGO_SETTINGS_MODULE)
+if __name__ == "__main__":
+    # Required: Vercel runs `collectstatic` via this file; without it, static assets are skipped.
     from django.core.management import execute_from_command_line
 
     execute_from_command_line(sys.argv)
-
-
-if __name__ == "__main__":
-    main()
