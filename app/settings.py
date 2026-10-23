@@ -89,7 +89,7 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = "app.asgi.application"
+ASGI_APPLICATION = "djangx.core.asgi.application"
 
 WSGI_APPLICATION = "djangx.core.wsgi.application"
 
