@@ -24,27 +24,31 @@ dev = ["django-stubs>=6.1.2", "djlint>=1.46.6", "poethepoet>=0.49.0"]
 preview-features = ["format-command", "check-command"]
 
 [tool.poe.tasks.format]
-help = "Format Python, HTML, CSS and JS"
+help = "Format Python, Django HTML"
 sequence = [{ cmd = "uv format" }, { cmd = "djlint . --reformat" }]
 
 [tool.poe.tasks.lint]
 help = "Run all linters and Django checks"
 sequence = [
-    { cmd = "uv format --check" },
     { cmd = "uv lock --check" },
+    { cmd = "uv format --check" },
     { cmd = "uv check" },
-    { cmd = "python manage.py check" },
-    { cmd = "python manage.py makemigrations --check --dry-run" },
+    { cmd = "djlint . --check" },
     { cmd = "djlint . --lint" },
+    { cmd = "djx check" },
+    { cmd = "djx makemigrations --check --dry-run" },
 ]
 
 [tool.poe.tasks.test]
 help = "Run test suite"
-cmd = "python manage.py test"
+cmd = "djx test"
 
 [tool.poe.tasks.ci]
 help = "Run everything used in CI"
 sequence = [{ ref = "lint" }, { ref = "test" }]
+
+[tool.ruff]
+exclude = ["*/migrations/*"]
 
 [tool.djlint]
 format_css = true
@@ -53,8 +57,5 @@ blank_line_before_tag = "block,list"
 blank_line_after_tag = "endblock,endlist"
 ignore = "H016,H030,H031"
 
-[tool.ruff]
-exclude = ["*/migrations/*"]
-
 [tool.vercel.scripts]
-build = "djangx migrate --noinput"
+build = "djx migrate --noinput"

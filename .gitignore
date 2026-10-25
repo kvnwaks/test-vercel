@@ -10,7 +10,7 @@ __pycache__/
 /db.sqlite3
 
 # Static & media files
-/public/
+/resources/
 
 # Environment
 /.env*
