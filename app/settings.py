@@ -19,7 +19,7 @@ from django.utils.csp import CSP
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR: Path = Path(__file__).resolve().parent.parent
 
-RESOURCES_DIR: Path = BASE_DIR / "resources"
+PUBLIC_DIR: Path = BASE_DIR / "public"
 
 
 # Quick-start development settings - unsuitable for production
@@ -48,8 +48,10 @@ INSTALLED_APPS: list[str] = [
     "django_browser_reload",
     "django_minify_html",
     "django_http_compression",
-    "rest_framework",
+    "app.main",
     "djangx.core",
+    "rest_framework",
+    "django_dart_sass",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -157,7 +159,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/stable/howto/static-files/
 
-STATIC_ROOT: Path = RESOURCES_DIR / "static"
+STATIC_ROOT: Path = PUBLIC_DIR / "static"
 
 STATIC_URL = "static/"
 
@@ -167,7 +169,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/6.1/ref/settings/#std-setting-MEDIA_URL
 # https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development
 
-MEDIA_ROOT: Path = RESOURCES_DIR / "media"
+MEDIA_ROOT: Path = PUBLIC_DIR / "media"
 
 MEDIA_URL = "media/"
 
@@ -208,4 +210,25 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ]
+}
+
+
+# Bootstrap 6 parts to compile, e.g. "buttons", "carousel". Set to None for all of Bootstrap.
+# `root`, `helpers` and `utilities/api` are always included.
+# https://getbootstrap.com/docs/6.0/customize/sass/#importing
+
+SASS_INCLUDES: list[str] | None = ["content", "layout", "forms", "buttons"]
+
+SASS_DART_OPTIONS = {
+    "style": "compressed",
+    "source_map": True,
+}
+
+SASS_THEME_COLORS: dict[str, str] = {
+    "primary": "#007bff",
+    "secondary": "#6c757d",
+    "success": "#28a745",
+    "danger": "#dc3545",
+    "warning": "#ffc107",
+    "info": "#17a2b8",
 }

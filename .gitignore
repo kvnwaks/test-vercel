@@ -1,16 +1,14 @@
-# Virtual environments & cache
+# Virtual env
 /.venv/
-/.ruff_cache/
-__pycache__/
 
-# Temporary files
-.tmp/
+# Cache
+__pycache__/
 
 # SQLite database
 /db.sqlite3
 
 # Static & media files
-/resources/
+/public/
 
 # Environment
 /.env*
