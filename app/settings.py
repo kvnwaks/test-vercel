@@ -15,6 +15,7 @@ from pathlib import Path
 from urllib.parse import parse_qsl, urlparse
 
 from django.utils.csp import CSP
+from djangx.core.utils import Settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR: Path = Path(__file__).resolve().parent.parent
@@ -44,37 +45,43 @@ ALLOWED_HOSTS: list[str] = [
 
 # Application definition
 
-INSTALLED_APPS: list[str] = [
-    "django_browser_reload",
-    "django_minify_html",
-    "django_http_compression",
-    "app.main",
-    "djangx.core",
-    "rest_framework",
-    "django_dart_sass",
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-]
+INSTALLED_APPS: list[str] = Settings.installed_apps(
+    apps=[
+        "django.contrib.admin",
+        "django.contrib.auth",
+        "django.contrib.contenttypes",
+        "django.contrib.sessions",
+        "django.contrib.messages",
+    ],
+    debug=DEBUG,
+)
 
-MIDDLEWARE: list[str] = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.middleware.csp.ContentSecurityPolicyMiddleware",
-    "django_http_compression.middleware.HttpCompressionMiddleware",  # before any middleware that modifies HTML
-    "django_minify_html.middleware.MinifyHtmlMiddleware",  # after http_compression, before other HTML modifiers (e.g. django_browser_reload)
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
-]
+MIDDLEWARE: list[str] = Settings.middleware(
+    middlewares=[
+        "django.middleware.security.SecurityMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        "django.middleware.csp.ContentSecurityPolicyMiddleware",
+    ],
+    debug=DEBUG,
+)
 
-ROOT_URLCONF = "app.urls"
+ROOT_URLCONF: str = "djangx.core.urls"
+
+ASGI_APPLICATION: str = "manage.asgi"
+
+WSGI_APPLICATION: str = "manage.wsgi"
+
+
+# Templates & context
+# https://docs.djangoproject.com/en/6.1/topics/templates/
+# https://docs.djangoproject.com/en/6.1/ref/templates/api/#django.template.backends.django.DjangoTemplates
+# https://docs.djangoproject.com/en/6.1/howto/custom-template-tags/
+# https://docs.djangoproject.com/en/6.1/howto/overriding-templates/
 
 TEMPLATES = [
     {
@@ -91,10 +98,6 @@ TEMPLATES = [
         },
     },
 ]
-
-ASGI_APPLICATION = "manage.asgi"
-
-WSGI_APPLICATION = "manage.wsgi"
 
 
 # Database
@@ -147,13 +150,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE: str = "en-us"
 
-TIME_ZONE = "Africa/Nairobi"
+TIME_ZONE: str = "Africa/Nairobi"
 
-USE_I18N = True
+USE_I18N: bool = True
 
-USE_TZ = True
+USE_TZ: bool = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -161,7 +164,7 @@ USE_TZ = True
 
 STATIC_ROOT: Path = PUBLIC_DIR / "static"
 
-STATIC_URL = "static/"
+STATIC_URL: str = "static/"
 
 
 # Media files
@@ -171,7 +174,7 @@ STATIC_URL = "static/"
 
 MEDIA_ROOT: Path = PUBLIC_DIR / "media"
 
-MEDIA_URL = "media/"
+MEDIA_URL: str = "media/"
 
 
 # CSP
@@ -202,17 +205,6 @@ MAILERS = {
 }
 
 
-# Rest Framework
-# https://www.django-rest-framework.org/
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
-    ]
-}
-
-
 # Bootstrap 6 parts to compile, e.g. "buttons", "carousel". Set to None for all of Bootstrap.
 # `root`, `helpers` and `utilities/api` are always included.
 # https://getbootstrap.com/docs/6.0/customize/sass/#importing
@@ -231,4 +223,15 @@ SASS_THEME_COLORS: dict[str, str] = {
     "danger": "#dc3545",
     "warning": "#ffc107",
     "info": "#17a2b8",
+}
+
+
+# Rest Framework
+# https://www.django-rest-framework.org/
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
 }
